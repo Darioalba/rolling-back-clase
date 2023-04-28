@@ -32,7 +32,7 @@ app.use(express.json()); //req.body
 app.get("/", (req, res) => {
   //escuche por el metodo get
   console.log(req);
-  res.send("hola");
+  res.send("hola soy el Back");
 });
 
 //llamo la ruta y se lo aplico a app
