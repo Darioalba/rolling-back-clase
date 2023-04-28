@@ -38,10 +38,10 @@ app.get("/", (req, res) => {
 });
 
 //llamo la ruta y se lo aplico a app
-// la ruta apì y el modulo
+// la ruta apì y el modul
 app.use("/api", require("./modulo/users"));
 app.use("/api", require("./modulo/productos"));
-app.use("/api", require("./login/auth"));
+
 
 
 const PORT = process.env.PORT
