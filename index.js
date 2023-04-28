@@ -20,7 +20,7 @@ mongoose
 // const usersRouter = require("./routes/users")
 
 //del modulo requiero la funcion saludar y mensaje
-//desestructuro el modulo y los utilizo
+//desestructuro el modulo y los utilizoS
 const { saludar, mensaje } = require("./modelo");
 saludar();
 console.log(mensaje);
@@ -40,5 +40,6 @@ app.get("/", (req, res) => {
 app.use("/api", require("./modulo/users"));
 app.use("/api", require("./modulo/productos"));
 
+const PORT = process.env.PORT
 //aqui escuchamos por un puerto
-app.listen(3000, () => console.log(`http://localhost:3000`));
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
