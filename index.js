@@ -1,3 +1,5 @@
+//Aqui vamos a hacer todo la parte del server
+
 //requiero la URI del .env
 //config levanta el archivo del env
 require("dotenv").config();
@@ -39,6 +41,8 @@ app.get("/", (req, res) => {
 // la ruta apì y el modulo
 app.use("/api", require("./modulo/users"));
 app.use("/api", require("./modulo/productos"));
+app.use("/api", require("./login/auth"));
+
 
 const PORT = process.env.PORT
 //aqui escuchamos por un puerto
