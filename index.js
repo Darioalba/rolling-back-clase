@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 // la ruta apì y el modul
 app.use("/api", require("./modulo/users"));
 app.use("/api", require("./modulo/productos"));
-app.use("/api", require("./modulo/auth"))
+app.use("/api", require("./modulo/authRouter"))
 
 
 const PORT = process.env.PORT
