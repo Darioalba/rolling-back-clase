@@ -17,24 +17,29 @@ const userSchema = new Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        index: { unique: true},
+        index: { unique: true },
 
     },
-    password:{
+    password: {
         type: String,
-        required: true,  
-    },   
+        required: true,
+    },
 })
 
 //algo que se ejecuta antes de grabar, en este caso el hash
-userSchema.pre("save", async function(){
-    try{
+userSchema.pre("save", async function () {
+    try {
         //del esquema toma el password, creo la promesa
-       this.password = await bcryptjs.hash(this.password, 12)
-    }catch(error){
+        this.password = await bcryptjs.hash(this.password, 12)
+    } catch (error) {
         console.log(error)
     }
 })
+
+//le agrego funcionalidad al modelo para compar el hash y loguear
+userSchema.methods.comparePassword = async function (password) {
+    return await bcryptjs.compare(password, this.password)
+}
 
 //vamos a crear un modelo a partir de lo anterior
 const User = model("User", userSchema)

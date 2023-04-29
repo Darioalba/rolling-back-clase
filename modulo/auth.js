@@ -23,13 +23,13 @@ router.post("/login", async (req, res) => {
       return res.status(403).json({ error: "User no register" })
     }
 
-    // //comparo el password
-    // const responseComper = user.comparePassword(password)
+    //comparo el password
+    const passwordCorrecto = await user.comparePassword(password)
 
-    // if (!responseComper) {
-    //   return res
-    //     .status(403).json({ error: "User no register" })
-    // }
+    if (!passwordCorrecto) {
+      return res
+        .status(403).json({ error: "El password o contraseña es incorrecto" })
+    }
 
     console.log(user)
     res.json({ login: true });

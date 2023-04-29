@@ -24,7 +24,7 @@ router.get("/productos/:id", async (req, res) => {
     //aqui busco los datos dentro de la base
     //esto es una promesa y se trae por el ID
     const producto = await Producto.findById(req.params.id);
-    // console.log(productos)
+    console.log(productos)
     // estos datos ya viene de la base de datos
     res.json(producto);
   } catch (err) {
@@ -71,8 +71,8 @@ router.delete("/productos/:id", async (req, res) => {
   try {
     //busca y brorra el elemento
     const result = await Producto.findByIdAndDelete(req.params.id)
-    const msg = result ? "Registro borrado": "No se encontro el registro"
-    res.json({msg}); //me trae el registro que borro
+    const msg = result ? "Registro borrado" : "No se encontro el registro"
+    res.json({ msg }); //me trae el registro que borro
   } catch (err) {
     console.log(err);
   }
