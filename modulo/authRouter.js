@@ -1,4 +1,4 @@
-// Ruta de autenticacion de usuario registro y login
+// Ruta de autenticacion (validacion) de usuario registro y login 
 
 //Establecemos las ruta
 const express = require("express");
@@ -27,8 +27,10 @@ router.post(
       .notEmpty()
       .withMessage("El password es requerido") //que no este vacio
       .isLength(5) //numero de caractereaas
-      .withMessage("El password debe tener como minimo 5 caracteres"), //que no este vacio
-  ],
+      .withMessage("El password debe tener como minimo 5 caracteres") //que no este vacio
+      .custom((value, {req}) => value === req.body.password_confirmation) //chequeo si los password dan iguales
+      .withMessage("La contraseña no coinside") 
+    ],
   register
 );
 
