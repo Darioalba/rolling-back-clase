@@ -21,6 +21,10 @@ mongoose
 
 // const usersRouter = require("./routes/users")
 
+//requerimos las cors para enlazar frint y back, 
+const cors = require("cors");
+app.use(cors())
+
 //del modulo requiero la funcion saludar y mensaje
 //desestructuro el modulo y los utilizoS
 const { saludar, mensaje } = require("./modelo");
@@ -29,6 +33,7 @@ console.log(mensaje);
 
 //crear miderwords, tranforma la peticion en un json obtiene req.body
 app.use(express.json()); //req.body
+app.use(cors())
 
 //aqui creamos la ruta
 app.get("/", (req, res) => {
