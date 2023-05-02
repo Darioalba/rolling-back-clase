@@ -33,7 +33,6 @@ console.log(mensaje);
 
 //crear miderwords, tranforma la peticion en un json obtiene req.body
 app.use(express.json()); //req.body
-app.use(cors())
 
 //aqui creamos la ruta
 app.get("/", (req, res) => {
