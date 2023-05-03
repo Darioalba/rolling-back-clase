@@ -23,7 +23,7 @@ function Register() {
       .post("http://localhost:3000/api/register", values)
       .then((res) => {
       console.log(res)
-      navigate("/")}) //redirecciono a pagina principal
+      navigate("/login")}) //redirecciono a pagina principal
       .catch((err) => console.log(err));
   };
 
