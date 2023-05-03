@@ -1,6 +1,7 @@
 //Establecemos las rutas
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken")
 
 //En el controlador creamos una funcion y le asiganmos la logica
 const login = async (req, res) => {
@@ -26,9 +27,13 @@ const login = async (req, res) => {
         .status(403)
         .json({ error: "El password o contraseña es incorrecto" });
     }
+
+    //aca genero el token y lo firmo
+    const token = jwt.sign({ uid: user.id }, process.env.JWR_SECRET, {expiresIn: "1h"})
+
     //retorna el login tru y user ID
     console.log(user);
-    res.json({ login: true, userID: user.id });
+    res.json({ login: true, userID: user.id, token });
   } catch (error) {
     //tira un error de duplicado de usuario
     res.status(500).json({ error: "Server Error" });

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 function Register() {
   //condicion inidial
@@ -9,6 +10,9 @@ function Register() {
     password_confirmation: "",
   });
 
+  //navegacion  a pagina principal
+  const navigate = useNavigate()
+
   //captura el boton enviar del form
   const handleSumbit = (e) => {
     //evito un evento predeterminado
@@ -17,7 +21,9 @@ function Register() {
     //con el metodo post envio del front a back
     axios
       .post("http://localhost:3000/api/register", values)
-      .then((res) => console.log(res))
+      .then((res) => {
+      console.log(res)
+      navigate("/")}) //redirecciono a pagina principal
       .catch((err) => console.log(err));
   };
 
