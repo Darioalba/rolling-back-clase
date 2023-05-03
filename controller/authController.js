@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken")
 
+
 //En el controlador creamos una funcion y le asiganmos la logica
 const login = async (req, res) => {
   //recibo el email y login
@@ -28,12 +29,14 @@ const login = async (req, res) => {
         .json({ error: "El password o contraseña es incorrecto" });
     }
 
-    //aca genero el token y lo firmo
-    const token = jwt.sign({ uid: user.id }, process.env.JWR_SECRET, {expiresIn: "1h"})
+    //cuando me logeo genero el token
+    const token = jwt.sign({ uid:user.id}, process.env.JWR_SECRET, {
+      expiresIn:"1h",
+    })
 
-    //retorna el login tru y user ID
+    //retorna el login tru, user ID, y token
     console.log(user);
-    res.json({ login: true, userID: user.id, token });
+    res.json({ login: true, userID: user.id, token});
   } catch (error) {
     //tira un error de duplicado de usuario
     res.status(500).json({ error: "Server Error" });
