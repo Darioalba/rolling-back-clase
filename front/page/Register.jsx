@@ -22,9 +22,14 @@ function Register() {
     axios
       .post("http://localhost:3000/api/register", values)
       .then((res) => {
-      console.log(res)
-      navigate("/login")}) //redirecciono a pagina principal
-      .catch((err) => console.log(err));
+        console.log(res)
+        alert("Usuario registrado")
+        navigate("/login")
+      }) //redirecciono a pagina principal
+      .catch((err) => {
+        console.log(err)
+        alert(err.response.data.errors[0].msg || "Server Error" )
+      });
   };
 
   //escuchador de evento de casillertos de formulario

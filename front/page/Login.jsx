@@ -21,9 +21,16 @@ function Login() {
     axios
       .post("http://localhost:3000/api/login", values)
       .then((res) => {
-      console.log(res)
-      navigate("/")}) //redirecciono a pagina principal
-      .catch((err) => console.log(err));
+        console.log(res)
+        
+        //guardamos el token en el localstorage y lo vamos a usar
+        localStorage.setItem("token", res.data.token)
+        navigate("/productos")
+      }) //redirecciono a pagina principal
+      .catch((err) =>{
+        console.log(err);
+        alert(err.response.data.error)
+      }) 
   };
 
   //escuchador de evento de casillertos de formulario
@@ -48,7 +55,7 @@ function Login() {
           <input
             type="email"
             className="form-control"
-            id="email"
+            id="emai"
             name="email"
             value={values.email}
             onChange={handleChange}

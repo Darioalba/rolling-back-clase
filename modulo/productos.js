@@ -1,12 +1,30 @@
 const express = require("express");
 const router = express.Router();
 
+const jwt = require("jsonwebtoken")
+
 //aqui traigo los productos
 const Producto = require("../models/lista");
 
 //cuando coloco un await la funcion tiene que tener un async
 router.get("/productos", async (req, res) => {
   try {
+    //token
+    console.log(req.headers)
+    //saco el authorizacion del headers
+    const {authorization} = req.headers
+
+    //separo el string y genero un array
+    console.log(authorization.split(" "))
+
+    //saco el token
+    const token = authorization.split(" ").pop()
+
+    //comparo el token y la firma
+    const payload = jwt.verify(token, process.env.JWT_SECRET)
+
+    console.log(payload)
+
     //aqui busco los datos dentro de la base
     //esto es una promesa
     const productos = await Producto.find();

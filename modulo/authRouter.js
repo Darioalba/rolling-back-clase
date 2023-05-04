@@ -2,7 +2,7 @@
 
 //Establecemos las ruta
 const express = require("express");
-const { login, register } = require("../controller/authController");
+const { login, register, resetPassword, forgotPassword} = require("../controller/authController");
 const { body } = require("express-validator");
 
 //metodo para crear ruta
@@ -33,6 +33,12 @@ router.post(
     ],
   register
 );
+
+//ruta de me olvide la contraseña
+router.post("/forgot", forgotPassword)
+
+// ruta de reseteo de contraseña
+router.post("reset/:id/:token", resetPassword)
 
 //exporto ruta
 module.exports = router;
