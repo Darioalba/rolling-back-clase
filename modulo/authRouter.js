@@ -1,8 +1,8 @@
-// Ruta de autenticacion (validacion) de usuario registro y login 
+// Ruta de autenticacion (validacion) de usuario registro y login
 
 //Establecemos las ruta
 const express = require("express");
-const { login, register, resetPassword, forgotPassword} = require("../controller/authController");
+const { login, register, forgotPassword, resetPassword} = require("../controller/authController");
 const { body } = require("express-validator");
 
 //metodo para crear ruta
@@ -29,7 +29,7 @@ router.post(
       .isLength(5) //numero de caractereaas
       .withMessage("El password debe tener como minimo 5 caracteres") //que no este vacio
       .custom((value, {req}) => value === req.body.password_confirmation) //chequeo si los password dan iguales
-      .withMessage("La contraseña no coinside") 
+      .withMessage("La contraseña no coinside")
     ],
   register
 );
@@ -37,8 +37,8 @@ router.post(
 //ruta de me olvide la contraseña
 router.post("/forgot", forgotPassword)
 
-// ruta de reseteo de contraseña
-router.post("reset/:id/:token", resetPassword)
+//ruta de reseteo de contraseña
+router.post("/reset/:id/:token", resetPassword)
 
 //exporto ruta
 module.exports = router;

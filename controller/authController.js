@@ -87,10 +87,10 @@ const forgotPassword = async (req, res) => {
     }
 
     //creamos token
-    const secret = process.env.JWT_SECRET + user.password;
-    //firmamos el token
-    const token = jwt.sign({ uis: user.id }, secret, { expiresIn: "15min" });
+    const secret = process.env.JWR_SECRET + user.password;
 
+    //firmamos el token
+    const token = jwt.sign({ uid: user.id }, secret, { expiresIn: "1h" });
     //aqui le pego el node mailer
     //creo el transporter que va a enviar el mail
     var transporter = nodemailer.createTransport({
@@ -104,7 +104,7 @@ const forgotPassword = async (req, res) => {
 
     //creamos el link de restablecer contraseña en el front
     //usamos el formato query string(clave valor)
-    const link = `http://localhost:5173/reset/${user.id}?token=${token}`;
+    const link = `http://localhost:5173/api/reset/${user.id}?token=${token}`;
 
     //vamos a crear el email de quin a quien se envia
     //incrustramos el mail
@@ -134,7 +134,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-const resetPassword = (req, res) => {
+const resetPassword = async (req, res) => {
   //parametro de id y token
   const { id, token } = req.params;
   //password de body
@@ -142,28 +142,28 @@ const resetPassword = (req, res) => {
 
   try {
     //buscamos si existe el usuario
-    const user = User.findById(id)
-    //pregfunto si existe el usuario
+    const user = await User.findById(id);
+    //regfunto si existe el usuario
     if (!user) {
       return res.status(422).json({ error: "No existe el usuario" });
     }
 
     //creamos token
     const secret = process.env.JWT_SECRET + user.password;
+
     //verifico que el token no este vencido o alterado
-    const verified = jwt.verify(token, secret)
-    
-    console.log(verified)
+    const verified = jwt.verify(token, secret);
+    console.log(verified);
 
     if (!verified) {
-     user.password = password
-     user.save()
+      user.password = password;
+      await user.save();
     }
 
     response.json({
       user,
-      verified
-    })
+      verified,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "server error" });
@@ -174,5 +174,5 @@ module.exports = {
   login,
   register,
   forgotPassword,
-  resetPassword
+  resetPassword,
 };

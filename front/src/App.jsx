@@ -3,6 +3,7 @@ import Home from "../page/Home"
 import Login from "../page/login"
 import Register from "../page/Register"
 import Productos from "../page/Productos"
+import ProductosCreate from "../page/ProductosCreate"
 function App() {
   return (
     <BrowserRouter>
@@ -11,6 +12,7 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/productos" element={<Productos/>}/>
+      <Route path="/productos/create" element={<ProductosCreate/>}/>
       
     </Routes>
     </BrowserRouter>
