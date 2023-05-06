@@ -11,7 +11,7 @@ const Producto = require("../models/lista");
 const multer = require("multer")
 //creo un storage para guarda la imagen
 // SET STORAGE
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/img/productos") //ubicacion donde se va a guarda
   },
