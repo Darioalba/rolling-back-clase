@@ -10,6 +10,9 @@ function ProductosCreate() {
         stock: "",
     });
 
+    const [imagen, setImagen] = useState()
+    
+    
     //escuchador de evento de casillertos de formulario
     const handleChange = (e) => {
         //target es cuando se cambia algo
@@ -67,7 +70,6 @@ function ProductosCreate() {
                         id="imagen"
                         required
                         name="imagen"
-                        value={values.imagen}
                         onChange={handleChange}
                     />
                 </div>
@@ -82,8 +84,8 @@ function ProductosCreate() {
                         id="precio"
                         name="precio"
                         required
-                    value={values.precio}
-                    onChange={handleChange}
+                        value={values.precio}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -96,10 +98,11 @@ function ProductosCreate() {
                         className="form-control"
                         id="stock"
                         name="stock"
-                    value={values.stock}
-                    onChange={handleChange}
+                        value={values.stock}
+                        onChange={handleChange}
                     />
                 </div>
+                <button className="btn btn-primary">Guaradar</button>
             </form>
 
         </div>
