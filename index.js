@@ -31,6 +31,8 @@ const { saludar, mensaje } = require("./modelo");
 saludar();
 console.log(mensaje);
 
+//crear miderwords, tranforma la peticion en un    obtiene el req.body con imagenes
+app.use(express.urlencoded({extended: false})); //req.body
 //crear miderwords, tranforma la peticion en un json obtiene req.body
 app.use(express.json()); //req.body
 

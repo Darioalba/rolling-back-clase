@@ -6,6 +6,22 @@ const jwt = require("jsonwebtoken")
 //aqui traigo los productos
 const Producto = require("../models/lista");
 
+
+//vamos a requerir multrt
+const multer = require("multer")
+//creo un storage para guarda la imagen
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/img/productos") //ubicacion donde se va a guarda
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+ "-" + file.originalname) //nombre original del archivo
+  }
+})
+const upload = multer({ storage: storage })
+
+
 //cuando coloco un await la funcion tiene que tener un async
 router.get("/productos", async (req, res) => {
   try {
@@ -51,13 +67,15 @@ router.get("/productos/:id", async (req, res) => {
 });
 
 //vamos a crear un solo producto
-router.post("/productos", async (req, res) => {
-  // console.log(req.body)
+//upload sigle sube una sola imagen
+router.post("/productos", upload.single("imagen"), async (req, res) => {
+console.log(req.body, req.file)
   try {
     //creamos un product
     const producto = new Producto({
       nombre: req.body.nombre,
       descripcion: req.body.descripcion,
+      imagen: req.file.filename,
       precio: req.body.precio,
       stock: req.body.stock,
     });

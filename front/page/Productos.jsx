@@ -1,17 +1,16 @@
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
 function Productos() {
+    //guardamos lo que nos llega en un estado
+    const [productos, setProductos] = useState([])
+
     //muestro los productos
     useEffect(() => {
-        axios.get("http://localhost:3000/api/productos"
-            // , {headers:{
-            //         Authorization: "Bearer" + localStorage.getItem("token")
-            //     }
-            // }
-        )
-            .then(response => console.log(response))
+        axios
+            .get("http://localhost:3000/api/productos")
+            .then((res) => setProductos(res))
             .catch((err) => console.log(err))
     }, [])
     return (
@@ -29,10 +28,13 @@ function Productos() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Nombre 1</td>
-                        <td>2000</td>
-                    </tr>
+                    {productos && 
+                    productos.map((producto)=>{
+                        <tr key={producto._id}>
+                            <td>{producto.nombre}</td>
+
+                        </tr>
+                    })}
                 </tbody>
             </table>
         </div>
