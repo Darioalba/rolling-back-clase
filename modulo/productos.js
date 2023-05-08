@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //cuando coloco un await la funcion tiene que tener un async
+//aqui traemos todos los productos
 router.get("/productos", async (req, res) => {
   try {
     // //token
@@ -121,6 +122,20 @@ router.delete("/productos/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+//vamos a buscar un registro
+router.get("/productos/search/:filter"), async(req, res) =>{
+  const { filter } = req.params
+
+  //se usa expresion regulares para buscar
+  try{
+    const productos = await Producto.find({nombre : {$regex:filter}})
+    res.json(productos)
+  } catch(error){
+    console.log(err)
+  }
+}
+
 
 //exporto el modulo
 module.exports = router;

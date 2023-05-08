@@ -74,7 +74,7 @@ function Productos() {
                 />
                 <button
                     className="btn btn-outline-secondary"
-                    // onClick={buscar}
+                    onClick={buscar}
                     type="button"
                 >
                     Buscar
