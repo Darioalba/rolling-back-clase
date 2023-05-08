@@ -4,6 +4,8 @@ import Login from "../page/login"
 import Register from "../page/Register"
 import Productos from "../page/Productos"
 import ProductosCreate from "../page/ProductosCreate"
+import ProductoEdit from "../page/ProductosEdit"
+
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,7 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/productos" element={<Productos/>}/>
       <Route path="/productos/create" element={<ProductosCreate/>}/>
+      <Route path="/productos/edit/:id" element={<ProductoEdit/>}/>
       
     </Routes>
     </BrowserRouter>
