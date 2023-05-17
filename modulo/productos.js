@@ -24,22 +24,21 @@ const upload = multer({ storage: storage });
 //aqui traemos todos los productos
 router.get("/productos", async (req, res) => {
   try {
-    // //token
-    // console.log(req.headers)
-    // //saco el authorizacion del headers
-    // const {authorization} = req.headers
+    const authHeader= req.headers["authorization"];
+    console.log(authHeader)
+    const token = authHeader.split(" ").pop()
+    console.log(token)
+    const payload = jwt.verify(token, process.env.JWT_SECRET)
+    console.log(payload)
+    const { uid } = payload;
 
-    // //separo el string y genero un array
-    // console.log(authorization.split(" "))
 
-    // //saco el token
-    // const token = authorization.split(" ").pop()
+    const productos = await Producto.find({ category: { $regex: filter } });
 
-    // //comparo el token y la firma
-    // const payload = jwt.verify(token, process.env.JWT_SECRET)
+    // // const user = User.findById(uid);
+    // // console.log(user)
 
-    // console.log(payload)
-
+    res.json({productos, uid});
     //aqui busco los datos dentro de la base
     //esto es una promesa
     const productos = await Producto.find();
